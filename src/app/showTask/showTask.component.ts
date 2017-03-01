@@ -17,23 +17,29 @@ export class ShowTaskComponent implements OnInit {
   newTask: Task[];
 
   ngOnInit() {
-    this.service.getData().subscribe(data =>  {
+    this.service.getData().subscribe(data => {
       alert(JSON.stringify(data))
-      this.newTask=data
-
-    }, err => {
-      alert(err)
-    });
+      this.newTask = data
+    },
+        /*err => {
+     alert(err)
+     });
+     }*/
+        (err: any) => console.error(err));
   }
-
 
 
   deleteByIndex(index: number) {
-    this.service.remove(this.newTask[index]._id).subscribe((data:any)=>alert(JSON.stringify(data)))
-  }
+    this.service.remove(this.newTask[index]._id).subscribe((data:any)=>
+    { alert("Task Removed")
+  }, err => {
+  console.error(err);
+})
+}
 
 
-  editTask(index: number) {
+  editTask(index: number)
+  {
     this.router.navigate(['CreateTask',this.newTask[index]._id])
   }
 

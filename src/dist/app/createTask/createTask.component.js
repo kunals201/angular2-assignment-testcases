@@ -27,19 +27,26 @@ var CreateTaskComponent = (function () {
                 _this.service.getData().subscribe(function (data) {
                     _this.newTask = data;
                     _this.task = _this.newTask.filter(function (task) { return task._id === _this.index; })[0];
-                }, function (err) {
-                    alert(err);
-                });
+                }, function (err) { return console.error(err); });
             }
         });
     };
     CreateTaskComponent.prototype.addTask = function () {
+        var _this = this;
         if (this.index) {
-            this.service.updateData(this.task).subscribe(function (data) { return alert(JSON.stringify(data)); });
+            this.service.updateData(this.task).subscribe(function (data) {
+                alert('Task Updated');
+            }, function (err) {
+                console.error(err);
+            });
         }
         else {
-            this.service.addData(this.task).subscribe(function (data) { return alert(JSON.stringify(data)); });
-            this.router.navigate(['ShowTask']);
+            this.service.addData(this.task).subscribe(function (data) {
+                alert('Task Added');
+                _this.router.navigate(['ShowTask']);
+            }, function (err) {
+                console.error(err);
+            });
         }
     };
     CreateTaskComponent = __decorate([

@@ -21,12 +21,19 @@ var ShowTaskComponent = (function () {
         this.service.getData().subscribe(function (data) {
             alert(JSON.stringify(data));
             _this.newTask = data;
-        }, function (err) {
-            alert(err);
-        });
+        }, 
+        /*err => {
+     alert(err)
+     });
+     }*/
+        function (err) { return console.error(err); });
     };
     ShowTaskComponent.prototype.deleteByIndex = function (index) {
-        this.service.remove(this.newTask[index]._id).subscribe(function (data) { return alert(JSON.stringify(data)); });
+        this.service.remove(this.newTask[index]._id).subscribe(function (data) {
+            alert("Task Removed");
+        }, function (err) {
+            console.error(err);
+        });
     };
     ShowTaskComponent.prototype.editTask = function (index) {
         this.router.navigate(['CreateTask', this.newTask[index]._id]);
